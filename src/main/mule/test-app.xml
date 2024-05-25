@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f9454181-e245-4d2f-bb29-5a59d5e7bced" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="182f6d75-9aa7-439d-825f-c33108b67fba" >
+		<http:request-connection protocol="HTTPS" host="dummy.restapiexample.com" >
+		</http:request-connection>
+	</http:request-config>
+	<flow name="test-appFlow" doc:id="68517836-bc8e-41d5-8efe-73775783e348" >
+		<http:listener doc:name="Listener" doc:id="dcfd56a6-6e64-4ede-8fc8-5f1bd0b4fd4c" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="8dedd8d8-ca3d-44d5-a1de-08bccdbd042e" message="Before Request"/>
+		<http:request method="GET" doc:name="Request" doc:id="cf3c6913-a310-4af0-b484-be156aa59b30" config-ref="HTTP_Request_configuration" path="/api/v1/employees"/>
+		<logger level="INFO" doc:name="Logger" doc:id="25ea8267-b96e-4092-8695-7bfdd3e980e5" message="After Request"/>
+	</flow>
+</mule>
